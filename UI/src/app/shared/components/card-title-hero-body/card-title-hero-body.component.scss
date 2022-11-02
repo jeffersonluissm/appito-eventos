@@ -1,0 +1,31 @@
+.card {
+  background: var(--color-background-secondary);
+  border-radius: 12px;
+  border: none;
+  padding: 12px 8px 16px;
+
+  h1 {
+    color: var(--color-title);
+    margin-bottom: 12px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+  }
+
+  &__hero {
+    border-radius: 10px;
+    margin-bottom: 16px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__content {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    color: var(--color-body);
+  }
+}

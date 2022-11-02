@@ -1,0 +1,47 @@
+<app-header-top></app-header-top>
+
+<ng-container *ngIf="areas">
+  <ng-container *ngFor="let component of areas">
+    <section [ngSwitch]="component.type">
+      <ng-container *ngSwitchCase="'header'">
+        <app-header [props]="component.properties"></app-header>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'hero-image'">
+        <app-hero-image [props]="component.properties"></app-hero-image>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'title-body'">
+        <app-title-body [props]="component.properties"></app-title-body>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'section-title'">
+        <app-title [props]="component.properties"></app-title>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'card-title-image-body'">
+        <app-card-title-image-body [props]="component.properties"></app-card-title-image-body>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'sponsor-level-1'">
+        <app-sponsors [props]="component.properties" [level]="1"></app-sponsors>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'sponsor-level-2'">
+        <app-sponsors [props]="component.properties" [level]="2"></app-sponsors>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'sponsor-level-3'">
+        <app-sponsors [props]="component.properties" [level]="3"></app-sponsors>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'card-title-hero-body'">
+        <app-card-title-hero-body [props]="component.properties"></app-card-title-hero-body>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'bottom-button-bar'">
+        <app-bottom-button-bar [props]="component.properties"></app-bottom-button-bar>
+      </ng-container>
+    </section>
+  </ng-container>
+</ng-container>

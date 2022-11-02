@@ -1,0 +1,164 @@
+/***************************
+        TIPOGRAFIA
+****************************/
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &.typography {
+    margin-bottom: 0;
+  }
+}
+
+.typography {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+
+  &.color-title {
+    color: var(--color-title) !important;
+  }
+
+  &.caption {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  &.headline {
+    font-weight: 400;
+
+    &.large {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    &.medium {
+      font-size: 28px;
+      line-height: 36px;
+    }
+
+    &.small {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    &-6 {
+      @extend .headline;
+      font-size: 18px;
+      line-height: 24px;
+    }
+  }
+
+  &.title {
+    font-weight: 400;
+
+    &.large {
+      font-size: 22px;
+      line-height: 28px;
+    }
+
+    &.medium {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.1px;
+    }
+
+    &.small {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+    }
+  }
+
+  &.label {
+    font-weight: 500;
+
+    &.large {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.1px;
+    }
+
+    &.medium {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    &.small {
+      font-size: 11px;
+      line-height: 16px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  &.body {
+    font-weight: 400;
+
+    &.large {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    &.medium {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.25px;
+    }
+
+    &.small {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0.4px;
+    }
+  }
+}
+
+/***************************
+        ESPAÇAMENTO
+****************************/
+
+.p-bottom-quarck {
+  padding-bottom: var(--spacing-stack-quarck);
+}
+
+.p-bottom-nano {
+  padding-bottom: var(--spacing-stack-nano);
+}
+
+.p-bottom-xxxs {
+  padding-bottom: var(--spacing-stack-xxxs);
+}
+
+.p-bottom-xxs {
+  padding-bottom: var(--spacing-stack-xxs);
+}
+
+.p-bottom-xs {
+  padding-bottom: var(--spacing-stack-xs);
+}
+
+.p-bottom-sm {
+  padding-bottom: var(--spacing-stack-sm);
+}
+
+.p-bottom-md {
+  padding-bottom: var(--spacing-stack-md);
+}
+
+.p-bottom-lg {
+  padding-bottom: var(--spacing-stack-lg);
+}
+
+.p-bottom-xl {
+  padding-bottom: var(--spacing-stack-xl);
+}

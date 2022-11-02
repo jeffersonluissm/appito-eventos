@@ -1,0 +1,7 @@
+<div class="card">
+  <h1 class="typography">{{ props.title }}</h1>
+  <div class="card__hero">
+    <img [src]="props.image" alt="" />
+  </div>
+  <div class="card__content" [innerHTML]="props.body"></div>
+</div>

@@ -1,0 +1,9 @@
+<h1 class="typography body medium p-bottom-quarck">{{ props.category }}</h1>
+
+<div class="sponsors">
+  <div [class]="'sponsor__level-' + level" *ngFor="let sponsor of props.images">
+    <div class="container-img">
+      <img [src]="sponsor" alt="" />
+    </div>
+  </div>
+</div>

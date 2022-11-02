@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.btn {
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  line-height: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+
+  &.btn-primary {
+    &,
+    &:active,
+    &:hover {
+      background: var(--color-accent);
+      color: var(--color-on-button);
+      border-color: var(--color-accent);
+    }
+  }
+}
