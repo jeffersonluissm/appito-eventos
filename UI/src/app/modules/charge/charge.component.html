@@ -1,0 +1,36 @@
+<div class="charge-body">
+  <app-header-inner title="Dados para cobrança" [loader]="loader"></app-header-inner>
+
+  <div class="content-form">
+    <form [formGroup]="form">
+      <ng-container *ngIf="areaForm">
+        <ng-container *ngFor="let field of areaForm.properties['fields']">
+          <div class="row-form">
+            <input
+              type="text"
+              class="form-control"
+              [formControlName]="field.properties['key']"
+              [placeholder]="field.properties['label']"
+              autocomplete="off"
+              [mask]="field.properties['mask']"
+            />
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="areaFormAddress">
+        <ng-container *ngFor="let field of areaFormAddress.properties['fields']">
+          <div class="row-form">
+            <input
+              type="text"
+              class="form-control"
+              [formControlName]="field.properties['key']"
+              [placeholder]="field.properties['label']"
+              autocomplete="off"
+              [mask]="field.properties['mask']"
+            />
+          </div>
+        </ng-container>
+      </ng-container>
+    </form>
+  </div>
+</div>

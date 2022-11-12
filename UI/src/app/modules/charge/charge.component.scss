@@ -1,0 +1,14 @@
+.charge-body {
+  background: var(--color-background-primary);
+  color: var(--color-body);
+  height: 100vh;
+  padding-bottom: 148px;
+
+  .content-form {
+    padding: 0 16px;
+
+    .row-form {
+      margin-bottom: 16px;
+    }
+  }
+}

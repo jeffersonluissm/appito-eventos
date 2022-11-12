@@ -13,6 +13,17 @@ import { LandingPageService } from './../../shared/services/landing-page.service
 })
 export class MainComponent implements OnInit {
   areas: ILandingPageArea[] = [];
+
+  areasLayout = {
+    header: [] as ILandingPageArea[],
+    main: [] as ILandingPageArea[],
+    sidebar: [] as ILandingPageArea[],
+  };
+
+  headerBg: string = '';
+
+  areasHeader: ILandingPageArea[] = [];
+
   colors!: IColorsThemeModel;
   eventId!: string;
 
@@ -35,6 +46,16 @@ export class MainComponent implements OnInit {
       })
       .subscribe((data) => {
         this.areas = (data.json as any)['areas'] as ILandingPageArea[];
+
+        Object.keys(this.areasLayout).forEach((item) => {
+          const areas = this.areas.filter((a) => a.section === item);
+          (this.areasLayout as any)[item] = areas;
+        });
+
+        this.headerBg = `url("${this.areasLayout.header.find((a) => a.type === 'hero-image')?.properties['image']}")`;
+
+        console.log(data.json);
+
         this.colors = (data.json as any)['colors'][1];
         localStorage.setItem('appito-events-colors', JSON.stringify(this.colors));
         this.landingPageService.setColors();

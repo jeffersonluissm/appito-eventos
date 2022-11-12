@@ -1,0 +1,15 @@
+@function rgbaOpacity($color, $opacity) {
+  @return rgba(red($color), green($color), blue($color), $opacity);
+}
+
+@mixin placeholder($color) {
+  &::placeholder {
+    color: $color !important;
+  }
+  &::-webkit-input-placeholder {
+    color: $color !important;
+  }
+  &::-ms-input-placeholder {
+    color: $color !important;
+  }
+}

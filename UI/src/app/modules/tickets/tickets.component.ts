@@ -1,19 +1,26 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ILandingPageArea } from 'src/app/shared/model/ILandingPageModel';
-import { ILandingTicket } from 'src/app/shared/model/ILandingTicket';
+import { ILandingTicket, ITicketItem } from 'src/app/shared/model/ILandingTicket';
 import { LandingPageService } from 'src/app/shared/services/landing-page.service';
 
 @Component({
   selector: 'app-tickets',
   templateUrl: './tickets.component.html',
   styleUrls: ['./tickets.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  animations: [
+    trigger('slideDownUp', [
+      transition(':enter', [style({ height: 0 }), animate('100ms')]),
+      transition(':leave', [animate('100ms', style({ height: 0 }))]),
+    ]),
+  ],
 })
 export class TicketsComponent implements OnInit {
   eventId!: string;
   areas: ILandingPageArea[] = [];
   tickets: ILandingTicket[] = [];
+  loader = false;
 
   constructor(private landingPageService: LandingPageService, private route: ActivatedRoute) {
     this.eventId = route.snapshot.params.eventId;
@@ -28,6 +35,7 @@ export class TicketsComponent implements OnInit {
     if (!this.eventId) {
       return;
     }
+    this.loader = true;
     this.landingPageService
       .getLandingPage({
         eventId: this.eventId,
@@ -36,12 +44,41 @@ export class TicketsComponent implements OnInit {
       .subscribe((data) => {
         this.areas = (data.json as any)['areas'] as ILandingPageArea[];
         this.tickets = (data.json as any)['tickets'];
-        this.tickets.forEach((t) => (t.icon = t.icon === 'calendar' ? 'event' : t.icon));
-        console.log(data);
+        this.loader = false;
       });
   }
 
   back() {
     window.history.back();
+  }
+
+  expand(ticket: ILandingTicket) {
+    if (!ticket.available) {
+      return;
+    }
+    ticket.expand = !ticket.expand;
+  }
+
+  more(ticket: ITicketItem) {
+    const newQuantity = (ticket.quantity || 0) + 1;
+    ticket.quantity = newQuantity > ticket.max ? ticket.quantity : newQuantity;
+  }
+
+  less(ticket: ITicketItem) {
+    const newQuantity = (ticket.quantity || 0) - 1;
+    ticket.quantity = newQuantity < ticket.min ? ticket.quantity : newQuantity;
+  }
+
+  get total() {
+    return {
+      number: this.tickets.reduce(
+        (acc, curr) => acc + curr.items.reduce((acc, curr) => acc + (curr.quantity || 0), 0),
+        0
+      ),
+      value: this.tickets.reduce(
+        (acc, curr) => acc + curr.items.reduce((acc, curr) => acc + (curr.quantity || 0) * curr.price, 0),
+        0
+      ),
+    };
   }
 }

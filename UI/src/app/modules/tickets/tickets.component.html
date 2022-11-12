@@ -1,27 +1,63 @@
-<header class="header">
-  <a (click)="back()" class="header__back">
-    <span class="material-icons-outlined"> arrow_back </span>
-  </a>
+<div class="tickets-body">
+  <app-header-inner title="Selecione" [loader]="loader"></app-header-inner>
 
-  <span>Selecione</span>
-
-  <a href="#" class="header__question"><span class="material-icons-outlined"> help_outline </span></a>
-</header>
-
-<ul class="list-unstyled tickets">
-  <li *ngFor="let ticket of tickets" class="ticket">
-    <div class="ticket__icon">
-      <span class="material-icons-outlined"> {{ ticket.icon }} </span>
-    </div>
-    <div class="ticket__content">
-      <div class="ticket__content__text">
-        <p class="typography body medium">{{ ticket.date }}</p>
-        <p class="typography body large color-title">{{ ticket.name }}</p>
-        <p class="typography body medium">{{ ticket.time }}</p>
+  <ul class="list-unstyled tickets">
+    <li *ngFor="let ticket of tickets">
+      <div class="ticket">
+        <div class="ticket__icon">
+          <span class="material-icons-outlined"> {{ ticket.icon }} </span>
+        </div>
+        <div class="ticket__content">
+          <div class="ticket__content__text">
+            <p class="typography body medium">{{ ticket.date }}</p>
+            <p class="typography body large color-title">{{ ticket.name }}</p>
+            <p class="typography body medium">{{ ticket.time }}</p>
+          </div>
+          <div class="ticket__content__status">
+            <a (click)="expand(ticket)">
+              <span class="typography body large">{{ ticket['status-text'] }} </span>
+              <span class="material-icons-outlined" *ngIf="ticket.available"> expand_more </span>
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="ticket__content__status">
-        <p class="typography body large">{{ ticket['status-text'] }}</p>
+
+      <ul class="list-unstyled tickets__items" *ngIf="ticket.expand" @slideDownUp>
+        <li *ngFor="let ticketItem of ticket.items" class="ticket__item">
+          <div class="ticket__icon">
+            <span class="material-icons-outlined"> {{ ticketItem.icon }} </span>
+          </div>
+          <div class="ticket__content">
+            <div class="ticket__content__text">
+              <p class="typography body large color-title">{{ ticketItem.name }}</p>
+              <p class="typography body medium">{{ ticketItem.price | currency: 'BRL':'symbol':'0.2-2' }}</p>
+            </div>
+            <div class="ticket__quantity">
+              <a (click)="less(ticketItem)">
+                <span class="material-icons-outlined"> remove_circle_outline </span>
+              </a>
+              <p class="typography body large">{{ ticketItem.quantity }}</p>
+              <a (click)="more(ticketItem)">
+                <span class="material-icons-outlined"> add_circle_outline </span>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="container-button d-grid">
+    <div class="row">
+      <div class="col-6">
+        <p class="typography body medium color-title">
+          {{ total.number || 'Nenhum' }} {{ total.number > 1 ? 'selecionados' : 'selecionado' }}
+        </p>
+        <p class="typography body medium">{{ total.value | currency: 'BRL':'symbol':'0.2-2' }}</p>
+      </div>
+      <div class="col-6 d-grid">
+        <button class="btn btn-primary" [routerLink]="'../cobranca'" [disabled]="total.number === 0">Continuar</button>
       </div>
     </div>
-  </li>
-</ul>
+  </div>
+</div>

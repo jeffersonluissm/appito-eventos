@@ -17,5 +17,6 @@ export interface ILandingPageConfig {
 
 export interface ILandingPageArea {
   type: string;
+  section?: string;
   properties: any;
 }

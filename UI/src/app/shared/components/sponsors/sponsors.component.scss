@@ -4,11 +4,11 @@
   .sponsor {
     margin-right: 8px;
     border-radius: 10px;
-    background: var(--color-background-secondary);
 
     .container-img {
       overflow: hidden;
       max-height: 100%;
+      padding: 12px 0;
     }
 
     img {
@@ -18,22 +18,16 @@
     &__level-1 {
       @extend .sponsor;
       width: 100px;
-      height: 80px;
-      padding: 19px 10px;
     }
 
     &__level-2 {
       @extend .sponsor;
       width: 80px;
-      height: 60px;
-      padding: 10px;
     }
 
     &__level-3 {
       @extend .sponsor;
-      width: 70px;
-      height: 50px;
-      padding: 10px;
+      width: 60px;
     }
   }
 }

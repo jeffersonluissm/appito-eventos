@@ -1,0 +1,37 @@
+.header__inner {
+  padding: 20px 16px;
+  background: rgba(27, 27, 27, 0.6);
+  backdrop-filter: blur(25px);
+  display: flex;
+  line-height: 24px;
+  height: 64px;
+  margin-bottom: 12px;
+
+  a {
+    color: var(--color-title);
+    cursor: pointer;
+  }
+
+  .material-icons-outlined {
+    font-size: 24px;
+  }
+
+  span {
+    flex: 1 0 auto;
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  &-back {
+    margin-right: 16px;
+  }
+
+  &-question {
+    color: var(--color-body) !important;
+  }
+
+  + mat-progress-bar {
+    margin-top: -12px;
+    margin-bottom: 12px;
+  }
+}

@@ -11,3 +11,47 @@ export function buildLandingPageSection1(): ILandingPageModel {
     error: false,
   };
 }
+
+export function buildLandingPageSection3(): ILandingPageModel {
+  const json = {
+    areas: [
+      {
+        type: 'form',
+        properties: {
+          title: 'Dados para cobrança',
+          fields: [
+            { type: 'T', properties: { label: 'Nome completo', key: 'name', id: '', size: '50' } },
+            { type: 'T', properties: { label: 'CPF', key: 'documentNumber', id: '', size: '20', mask: 'CPF' } },
+            { type: 'T', properties: { label: 'Celular', key: 'phone', id: '', size: '20', mask: 'PHONE' } },
+            { type: 'T', properties: { label: 'E-mail', key: 'email', id: '', size: '100' } },
+          ],
+        },
+      },
+      {
+        type: 'form-address',
+        properties: {
+          fields: [
+            { type: 'T', properties: { label: 'CEP', key: 'zipcode', id: '', size: '50', mask: 'CEP' } },
+            { type: 'T', properties: { label: 'Endereço', key: 'address', id: '', size: '20', mask: '' } },
+            { type: 'T', properties: { label: 'Número', key: 'addressNumber', id: '', size: '10' } },
+            { type: 'T', properties: { label: 'Complemento', key: 'complement', id: '', size: '10' } },
+            { type: 'T', properties: { label: 'Bairro', key: 'neighborhood', id: '', size: '10' } },
+            { type: 'T', properties: { label: 'Cidade', key: 'city', id: '', size: '10' } },
+            { type: 'T', properties: { label: 'Estado', key: 'state', id: '', size: '10' } },
+          ],
+        },
+      },
+      { type: 'bottom-button-bar ', properties: { text: 'Inscreva-se', action: 'confirmation' } },
+    ],
+  };
+
+  return {
+    subscriptionId: '4628fe1c-fbc8-40df-90be-7a8cf60393c2',
+    eventId: 'copa2022',
+    stage: 3,
+    stages: [1, 2, 3, 4, 5],
+    json: JSON.stringify(json),
+    message: null as any,
+    error: false,
+  };
+}

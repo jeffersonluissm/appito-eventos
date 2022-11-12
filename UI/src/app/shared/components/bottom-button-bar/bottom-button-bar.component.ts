@@ -14,7 +14,11 @@ export class BottomButtonBarComponent implements OnInit {
   @Input()
   props!: IProperties;
 
+  route!: string;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route = this.props.action;
+  }
 }

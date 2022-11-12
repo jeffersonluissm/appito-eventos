@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TicketsModule } from '../tickets/tickets.module';
 
+import { TicketsModule } from '../tickets/tickets.module';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: ':eventId/tickets',
     loadChildren: () => import('../tickets/tickets.module').then((m) => m.TicketsModule),
+  },
+  {
+    path: ':eventId/cobranca',
+    loadChildren: () => import('../charge/charge.module').then((m) => m.ChargeModule),
   },
 ];
 

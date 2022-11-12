@@ -6,12 +6,14 @@ export interface ILandingTicket {
   name: string;
   'status-text': string;
   time: string;
+  expand?: boolean;
 }
 
-interface ITicketItem {
+export interface ITicketItem {
   icon: string;
   max: number;
   min: number;
   name: string;
   price: number;
+  quantity?: number;
 }
