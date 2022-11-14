@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { IColorsThemeModel } from './../../shared/model/IColorsThemeModel';
-import { ILandingPageModel, ILandingPageConfig, ILandingPageArea } from './../../shared/model/ILandingPageModel';
+import { ILandingPageArea } from './../../shared/model/ILandingPageModel';
 import { LandingPageService } from './../../shared/services/landing-page.service';
 
 @Component({
@@ -22,12 +23,17 @@ export class MainComponent implements OnInit {
 
   headerBg: string = '';
 
-  areasHeader: ILandingPageArea[] = [];
+  areaButton!: ILandingPageArea;
 
   colors!: IColorsThemeModel;
   eventId!: string;
 
-  constructor(private landingPageService: LandingPageService, private route: ActivatedRoute) {
+  constructor(
+    private landingPageService: LandingPageService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private snackbar: MatSnackBar
+  ) {
     this.eventId = route.snapshot.params.eventId;
   }
 
@@ -44,21 +50,31 @@ export class MainComponent implements OnInit {
         eventId: this.eventId,
         stage: 1,
       })
-      .subscribe((data) => {
-        this.areas = (data.json as any)['areas'] as ILandingPageArea[];
+      .subscribe({
+        next: (data) => {
+          this.areas = (data.json as any)['areas'] as ILandingPageArea[];
+          this.areaButton = this.areas.find((a) => a.type === 'bottom-button-bar') as ILandingPageArea;
 
-        Object.keys(this.areasLayout).forEach((item) => {
-          const areas = this.areas.filter((a) => a.section === item);
-          (this.areasLayout as any)[item] = areas;
-        });
+          Object.keys(this.areasLayout).forEach((item) => {
+            const areas = this.areas.filter((a) => a.section === item);
+            (this.areasLayout as any)[item] = areas;
+          });
 
-        this.headerBg = `url("${this.areasLayout.header.find((a) => a.type === 'hero-image')?.properties['image']}")`;
+          this.headerBg = `url("${this.areasLayout.header.find((a) => a.type === 'hero-image')?.properties['image']}")`;
 
-        console.log(data.json);
-
-        this.colors = (data.json as any)['colors'][1];
-        localStorage.setItem('appito-events-colors', JSON.stringify(this.colors));
-        this.landingPageService.setColors();
+          this.colors = (data.json as any)['colors'][1];
+          localStorage.setItem('appito-events-colors', JSON.stringify(this.colors));
+          this.landingPageService.setColors();
+        },
+        error: (err) => {
+          this.snackbar.open('Este evento não existe', 'Fechar', { duration: 5000 });
+          location.href = 'https://appito.com';
+        },
       });
+  }
+
+  next() {
+    const route = this.areaButton ? this.areaButton.properties.action : 'tickets';
+    this.router.navigateByUrl(`${this.eventId}/${route}`);
   }
 }

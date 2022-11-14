@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 export abstract class BaseService {
   // TODO: PRODUCTION CONFIGURATION HERE
   protected landingPageApi: string = environment.landingPageAPI;
+  protected bookingApi: string = environment.bookingAPI;
 
   protected extractData(response: any) {
     return response.data || {};

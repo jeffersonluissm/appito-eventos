@@ -40,23 +40,45 @@ body {
     .header__inner {
       padding: 12px 16px 24px;
       position: relative;
+
+      &-dates {
+        .btn {
+          display: none;
+        }
+      }
     }
   }
 }
 
-@media (min-width: 767.98px) {
-  app-header-top {
-    margin: 0 -16px;
-    display: block;
-  }
+.main-container {
+  padding-top: 12px;
+}
 
-  .header {
-    &__inner {
-      display: flex;
-      flex-direction: row-reverse;
+@media (min-width: 767.98px) {
+  .header__main {
+    .header {
+      &__inner {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        padding: 24px 12px;
+
+        &-dates {
+          .btn {
+            display: block;
+            margin: 0 auto;
+          }
+        }
+      }
     }
     app-hero-image {
-      width: 61.51%;
+      margin-right: 24px;
+    }
+  }
+  .main-container {
+    padding-top: 24px;
+    app-bottom-button-bar {
+      display: none;
     }
   }
 }

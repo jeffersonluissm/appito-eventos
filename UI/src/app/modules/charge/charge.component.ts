@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Customer } from 'src/app/shared/model/ICustomer';
 import { LandingPageService } from 'src/app/shared/services/landing-page.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ILandingPageArea } from './../../shared/model/ILandingPageModel';
 
@@ -18,14 +20,31 @@ export class ChargeComponent implements OnInit {
 
   areaForm!: ILandingPageArea;
   areaFormAddress!: ILandingPageArea;
+  areaButton!: ILandingPageArea;
+  showAddress = false;
+  buttonEnabled = false;
 
-  constructor(private landingPageService: LandingPageService, private route: ActivatedRoute, private fb: FormBuilder) {
+  constructor(
+    private landingPageService: LandingPageService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private router: Router,
+    private snackbar: MatSnackBar
+  ) {
     this.eventId = route.snapshot.params.eventId;
   }
 
   ngOnInit(): void {
     this.landingPageService.setColors();
     this.getConfig();
+
+    this.form.valueChanges.subscribe((data) => {
+      this.buttonEnabled = this.form.valid;
+    });
+  }
+
+  back() {
+    window.history.back();
   }
 
   getConfig() {
@@ -39,35 +58,65 @@ export class ChargeComponent implements OnInit {
         stage: 3,
       })
       .subscribe((data) => {
-        console.log(data.json);
         const areas = (data.json as any)['areas'] as ILandingPageArea[];
         this.areaForm = areas.find((a) => a.type === 'form') as ILandingPageArea;
         this.areaFormAddress = areas.find((a) => a.type === 'form-address') as ILandingPageArea;
+        this.areaButton = areas.find((a) => a.type === 'bottom-button-bar') as ILandingPageArea;
 
-        this.buildForm(this.areaForm);
-        this.buildForm(this.areaFormAddress);
+        this.buildForm(this.areaForm, true);
+
+        if (this.areaFormAddress) {
+          const area = {
+            properties: {
+              fields: this.landingPageService.getControlsAddress(),
+            },
+          };
+          this.buildForm(area as any);
+        }
+
+        this.recoverData();
+
         this.loader = false;
       });
   }
 
-  buildForm(area: ILandingPageArea) {
+  recoverData() {
+    let customer = this.landingPageService.getCache();
+    if (!customer) {
+      this.snackbar.open('Ocorreu um erro. Tente novamente.', 'Fechar', { duration: 1000 });
+      this.router.navigateByUrl(`${this.eventId}`);
+      return;
+    }
+
+    if (!customer.addressDetails) {
+      return;
+    }
+    this.form.patchValue(customer);
+    this.form.patchValue(customer.addressDetails);
+    this.showAddress = true;
+  }
+
+  buildForm(area: ILandingPageArea, allRequired = false) {
     if (!area) {
       return;
     }
     const fields = area.properties['fields'] as ILandingPageArea[];
     fields.forEach((f) => {
       f.properties['mask'] = this.buildMask(f.properties['mask']);
-
-      let control = this.fb.control(null, [Validators.maxLength(parseInt(f.properties['size']))]);
+      const validators = [];
 
       if (f.properties['key'] === 'email') {
-        control.setValidators(Validators.email);
+        validators.push(Validators.email);
       }
 
+      const required = f.properties['required'];
+      if (allRequired || required) {
+        validators.push(Validators.required);
+      }
+
+      const control = this.fb.control(null, validators);
       this.form.addControl(f.properties['key'], control);
     });
-
-    console.log(this.form, this.areaForm);
   }
 
   buildMask(mask: string) {
@@ -78,5 +127,49 @@ export class ChargeComponent implements OnInit {
       masked = '(00) 00000-0000';
     }
     return masked;
+  }
+
+  getAddressByZipcode() {
+    const zipCodeValue = this.form.get('zipcode')?.value;
+
+    if (!zipCodeValue || zipCodeValue.length < 8) {
+      return;
+    }
+    this.loader = true;
+    this.landingPageService.getAddress(zipCodeValue).subscribe((data) => {
+      this.loader = false;
+      this.form.patchValue(data);
+      this.showAddress = true;
+    });
+  }
+
+  next() {
+    let customer = this.landingPageService.getCache() as any;
+    if (!customer || this.form.invalid) {
+      this.snackbar.open('Ocorreu um erro. Tente novamente.', 'Fechar', { duration: 1000 });
+      this.router.navigateByUrl(`${this.eventId}`);
+      return;
+    }
+
+    const formValue = this.form.value;
+
+    customer!.name = formValue.name;
+    customer!.documentNumber! = formValue.documentNumber;
+    customer!.phone! = formValue.phone;
+    customer!.email! = formValue.email;
+    customer!.addressDetails! = {
+      zipcode: formValue.zipcode,
+      address: formValue.address,
+      addressNumber: formValue.addressNumber,
+      complement: formValue.complement,
+      neighborhood: formValue.neighborhood,
+      city: formValue.city,
+      state: formValue.state,
+    };
+
+    this.landingPageService.saveCache(customer);
+
+    const route = this.areaButton ? this.areaButton.properties.action : 'confirmation';
+    this.router.navigateByUrl(`${this.eventId}/${route}`);
   }
 }

@@ -1,5 +1,10 @@
+:host {
+  position: relative;
+}
+
 .header__inner {
   padding: 20px 16px;
+  padding-bottom: 23px;
   background: rgba(27, 27, 27, 0.6);
   backdrop-filter: blur(25px);
   display: flex;
@@ -20,6 +25,7 @@
     flex: 1 0 auto;
     font-size: 22px;
     line-height: 28px;
+    color: var(--color-title);
   }
 
   &-back {
@@ -32,6 +38,8 @@
 
   + mat-progress-bar {
     margin-top: -12px;
-    margin-bottom: 12px;
+
+    position: absolute;
+    bottom: 0;
   }
 }

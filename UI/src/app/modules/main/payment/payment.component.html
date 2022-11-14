@@ -1,0 +1,37 @@
+<div class="payment-body">
+  <app-header-inner
+    title="Pedido Realizado"
+    [loader]="loader"
+    (close)="onClose()"
+    [showClose]="true"
+  ></app-header-inner>
+
+  <div class="container-sm p-0">
+    <div class="content">
+      <div class="typography body medium payment-description">
+        Pague pela internet ou app do seu banco copiando a chave Pix ou através do QR Code. Lembre-se de realizar o
+        pagamento até o vencimento. Caso não seja identificado o pagamento, seu pedido será cancelado. Enviaremos o(s)
+        ingresso(s) por e-mail quando o pagamento for confirmado.
+      </div>
+
+      <div class="row payment-row">
+        <div class="col-md-6">
+          <div class="container-pix">
+            <img src="https://via.placeholder.com/180" alt="" />
+            <p class="typography body medium color-title">R$ 60,00 – Pague até: 11/11 13:32</p>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="typography body medium payment-code">
+            {{ codePix }}
+          </div>
+
+          <div class="text-center">
+            <button class="btn btn-primary" [cdkCopyToClipboard]="codePix">Copiar código Pix</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,13 @@
-<div class="container-button d-grid">
-  <button class="btn btn-primary" [routerLink]="[route]">{{ props.text }}</button>
+<div class="container-button">
+  <div class="container-sm">
+    <div class="row justify-content-end">
+      <div class="col-md-5">
+        <div class="d-grid">
+          <button class="btn btn-primary" [disabled]="!enabled" (click)="onClick()">
+            {{ props.text }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

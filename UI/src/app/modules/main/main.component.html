@@ -1,14 +1,18 @@
-<div class="container-sm p-0">
-  <section class="header__main">
-    <app-header-top></app-header-top>
-    <div class="header__bg" [ngStyle]="{ 'background-image': headerBg }"></div>
+<section class="header__main">
+  <app-header-top></app-header-top>
+  <div class="header__bg" [ngStyle]="{ 'background-image': headerBg }"></div>
+  <div class="container-sm p-0">
     <div class="header__inner">
       <ng-container *ngIf="areas">
         <ng-container *ngFor="let component of areasLayout.header">
           <ng-container [ngSwitch]="component.type">
-            <ng-container *ngSwitchCase="'header'">
+            <div class="header__inner-dates" *ngSwitchCase="'header'">
               <app-header [props]="component.properties"></app-header>
-            </ng-container>
+
+              <button class="btn btn-primary" *ngIf="areaButton" (click)="next()">
+                {{ areaButton.properties.text }}
+              </button>
+            </div>
 
             <ng-container *ngSwitchCase="'hero-image'">
               <app-hero-image [props]="component.properties"></app-hero-image>
@@ -17,11 +21,12 @@
         </ng-container>
       </ng-container>
     </div>
-  </section>
-
-  <div class="container-fluid" *ngIf="areas">
+  </div>
+</section>
+<div class="container-sm p-0">
+  <div class="container-fluid main-container" *ngIf="areas">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-7">
         <ng-container *ngFor="let component of areasLayout.main">
           <section class="section" [ngSwitch]="component.type">
             <ng-container *ngSwitchCase="'header'">
@@ -61,12 +66,12 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="'bottom-button-bar'">
-              <app-bottom-button-bar [props]="component.properties"></app-bottom-button-bar>
+              <app-bottom-button-bar [props]="component.properties" (clicked)="next()"></app-bottom-button-bar>
             </ng-container>
           </section>
         </ng-container>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
         <ng-container *ngFor="let component of areasLayout.sidebar">
           <section class="section" [ngSwitch]="component.type">
             <ng-container *ngSwitchCase="'header'">
@@ -106,7 +111,7 @@
             </ng-container>
 
             <ng-container *ngSwitchCase="'bottom-button-bar'">
-              <app-bottom-button-bar [props]="component.properties"></app-bottom-button-bar>
+              <app-bottom-button-bar [props]="component.properties" (clicked)="next()"></app-bottom-button-bar>
             </ng-container>
           </section>
         </ng-container>

@@ -1,36 +1,110 @@
 <div class="charge-body">
-  <app-header-inner title="Dados para cobrança" [loader]="loader"></app-header-inner>
+  <app-header-inner title="Dados para cobrança" [loader]="loader" (back)="back()"></app-header-inner>
 
-  <div class="content-form">
-    <form [formGroup]="form">
-      <ng-container *ngIf="areaForm">
-        <ng-container *ngFor="let field of areaForm.properties['fields']">
-          <div class="row-form">
-            <input
-              type="text"
-              class="form-control"
-              [formControlName]="field.properties['key']"
-              [placeholder]="field.properties['label']"
-              autocomplete="off"
-              [mask]="field.properties['mask']"
-            />
-          </div>
+  <div class="container-sm p-0">
+    <div class="content-form">
+      <form [formGroup]="form">
+        <ng-container *ngIf="areaForm">
+          <ng-container *ngFor="let field of areaForm.properties['fields']">
+            <div class="row row-form">
+              <div class="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="field.properties['key']"
+                  [placeholder]="field.properties['label']"
+                  autocomplete="off"
+                  [mask]="field.properties['mask']"
+                />
+              </div>
+            </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
-      <ng-container *ngIf="areaFormAddress">
-        <ng-container *ngFor="let field of areaFormAddress.properties['fields']">
-          <div class="row-form">
-            <input
-              type="text"
-              class="form-control"
-              [formControlName]="field.properties['key']"
-              [placeholder]="field.properties['label']"
-              autocomplete="off"
-              [mask]="field.properties['mask']"
-            />
+        <ng-container *ngIf="areaFormAddress">
+          <div class="row row-form">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="zipcode"
+                placeholder="CEP"
+                mask="00000-000"
+                autocomplete="off"
+                (change)="getAddressByZipcode()"
+              />
+            </div>
           </div>
+
+          <ng-container *ngIf="showAddress">
+            <div class="row row-form">
+              <div class="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="address"
+                  placeholder="Logradouro"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+            <div class="row row-form row-form-2">
+              <div class="col-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="addressNumber"
+                  placeholder="Nº"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="complement"
+                  placeholder="Complemento"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="row-form">
+              <div class="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="neighborhood"
+                  placeholder="Bairro"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="row row-form row-form-2">
+              <div class="col-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="city"
+                  placeholder="Cidade"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="col-6">
+                <input type="text" class="form-control" formControlName="state" placeholder="UF" autocomplete="off" />
+              </div>
+            </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
-    </form>
+      </form>
+    </div>
+  </div>
+
+  <div class="bottom-button" *ngIf="areaButton">
+    <app-bottom-button-bar
+      [props]="areaButton.properties"
+      [enabled]="buttonEnabled"
+      (clicked)="next()"
+    ></app-bottom-button-bar>
   </div>
 </div>

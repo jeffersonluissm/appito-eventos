@@ -12,6 +12,9 @@ import { TitleBodyComponent } from './title-body/title-body.component';
 import { TitleComponent } from './title/title.component';
 import { BottomButtonBarComponent } from './bottom-button-bar/bottom-button-bar.component';
 import { HeaderInnerComponent } from './header-inner/header-inner.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { DialogHelpComponent } from './dialog-help/dialog-help.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +28,9 @@ import { HeaderInnerComponent } from './header-inner/header-inner.component';
     CardTitleHeroBodyComponent,
     BottomButtonBarComponent,
     HeaderInnerComponent,
+    DialogHelpComponent,
   ],
-  imports: [CommonModule, RouterModule, MatProgressBarModule],
+  imports: [CommonModule, RouterModule, MatProgressBarModule, MatDialogModule, MatButtonModule],
   exports: [
     HeaderComponent,
     HeaderTopComponent,
@@ -38,6 +42,7 @@ import { HeaderInnerComponent } from './header-inner/header-inner.component';
     CardTitleHeroBodyComponent,
     BottomButtonBarComponent,
     HeaderInnerComponent,
+    DialogHelpComponent,
   ],
 })
 export class SharedModule {}

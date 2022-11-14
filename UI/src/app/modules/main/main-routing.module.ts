@@ -1,7 +1,9 @@
+import { TermsComponent } from './terms/terms.component';
+import { PaymentComponent } from './payment/payment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
-import { TicketsModule } from '../tickets/tickets.module';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
@@ -16,6 +18,22 @@ const routes: Routes = [
   {
     path: ':eventId/cobranca',
     loadChildren: () => import('../charge/charge.module').then((m) => m.ChargeModule),
+  },
+  {
+    path: ':eventId/confirmation',
+    component: ConfirmationComponent,
+  },
+  {
+    path: ':eventId/terms',
+    component: TermsComponent,
+  },
+  {
+    path: ':eventId/payment',
+    component: PaymentComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'copa2022',
   },
 ];
 

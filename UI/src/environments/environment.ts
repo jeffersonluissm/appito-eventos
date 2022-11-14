@@ -3,10 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 const API_URL = 'http://34.172.119.177/';
+const API_URL_MANAGER = 'http://40.89.253.171/';
 
 export const environment = {
   production: false,
   landingPageAPI: `${API_URL}appito-landingpage/api/LandingPage`,
+  bookingAPI: `${API_URL_MANAGER}ms-booking/api/booking`,
 };
 
 /*

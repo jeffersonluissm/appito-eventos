@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 interface IProperties {
   action: string;
@@ -14,11 +14,18 @@ export class BottomButtonBarComponent implements OnInit {
   @Input()
   props!: IProperties;
 
+  @Input() enabled = true;
+  @Output() clicked = new EventEmitter();
+
   route!: string;
 
   constructor() {}
 
   ngOnInit(): void {
     this.route = this.props.action;
+  }
+
+  onClick() {
+    this.clicked.emit();
   }
 }
