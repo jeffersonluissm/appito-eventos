@@ -55,13 +55,28 @@ body {
 }
 
 @media (min-width: 767.98px) {
+  .main__body {
+    padding-bottom: 40px;
+  }
   .header__main {
+    app-header-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .header__bg {
+      padding-top: 64px;
+    }
+
     .header {
       &__inner {
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
-        padding: 24px 12px;
+        padding: 88px 12px 24px;
 
         &-dates {
           .btn {
@@ -72,13 +87,31 @@ body {
       }
     }
     app-hero-image {
-      margin-right: 24px;
+      padding-right: 12px;
+      width: 58.33333333%;
+      flex: 0 0 auto;
+    }
+
+    .header__inner-dates {
+      padding-left: 12px;
     }
   }
   .main-container {
     padding-top: 24px;
     app-bottom-button-bar {
       display: none;
+    }
+  }
+}
+@media (max-width: 767px) {
+  .main-container {
+    padding-bottom: 86px;
+    app-bottom-button-bar {
+      display: block;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      left: 0;
     }
   }
 }

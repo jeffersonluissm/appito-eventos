@@ -13,6 +13,7 @@ import { IAddress } from '../model/IAddress';
 import { ICustomer } from '../model/ICustomer';
 
 import { ILandingPageRequest } from '../model/ILandingPageRequestModel';
+import { IRegisterCustomerResponse } from '../model/IRegisterCustomerResponse';
 import { ILandingPageModel } from './../model/ILandingPageModel';
 import { BaseService } from './base.service';
 
@@ -54,14 +55,14 @@ export class LandingPageService extends BaseService {
     //   );
     // }
 
-    if (request.stage === 5) {
-      return of(buildLandingPageSection5()).pipe(
-        map((item) => {
-          item.json = JSON.parse(item.json as string);
-          return item;
-        })
-      );
-    }
+    // if (request.stage === 5) {
+    //   return of(buildLandingPageSection5()).pipe(
+    //     map((item) => {
+    //       item.json = JSON.parse(item.json as string);
+    //       return item;
+    //     })
+    //   );
+    // }
 
     return this.http.post<ILandingPageModel>(`${this.landingPageApi}/GetLandingPageAlt/`, request).pipe(
       map((item) => {
@@ -125,8 +126,7 @@ export class LandingPageService extends BaseService {
     sessionStorage.removeItem('appito-events-data');
   }
 
-  postRegisterCustomer(customer: ICustomer) {
-    return of({});
-    return this.http.post<any>(`${this.landingPageApi}/RegisterCustomer/`, customer);
+  postRegisterCustomer<IRegisterCustomerResponse>(customer: ICustomer) {
+    return this.http.post<IRegisterCustomerResponse>(`${this.landingPageApi}/RegisterCustomer/`, customer);
   }
 }

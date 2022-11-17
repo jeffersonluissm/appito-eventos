@@ -35,6 +35,7 @@ export class TicketsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.landingPageService.setColors();
     this.getConfig();
   }

@@ -2,12 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-const API_URL = 'http://34.172.119.177/';
+// const API_URL = 'http://34.172.119.177/';
+const API_URL = 'https://api.appito-eventos.com/';
 const API_URL_MANAGER = 'http://40.89.253.171/';
 
 export const environment = {
   production: false,
-  landingPageAPI: `${API_URL}appito-landingpage/api/LandingPage`,
+  landingPageAPI: `${API_URL}api/landingpage`,
+  // landingPageAPI: `${API_URL}appito-landingpage/api/LandingPage`,
   bookingAPI: `${API_URL_MANAGER}ms-booking/api/booking`,
 };
 

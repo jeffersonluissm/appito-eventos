@@ -1,3 +1,4 @@
+import { IRegisterCustomerResponse } from './../../../shared/model/IRegisterCustomerResponse';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,8 +15,7 @@ export class PaymentComponent implements OnInit {
   eventId!: string;
   loader = false;
 
-  codePix =
-    '00020101021226820014br.gov.bcb.pix2560pix.stone.com.br/pix/v2/b8c31aba-0859-441a-896a-adff6a48954c5204000053039865406350.005802BR5925APPITO SOLUCOES TECNOLOGI6014RIO DE JANEIRO62290525738344857066433c9b1cd4a18630434B5';
+  paymentData!: IRegisterCustomerResponse;
 
   constructor(
     private landingPageService: LandingPageService,
@@ -27,6 +27,7 @@ export class PaymentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.landingPageService.setColors();
     this.getConfig();
   }
@@ -36,15 +37,15 @@ export class PaymentComponent implements OnInit {
       return;
     }
     this.loader = true;
-    this.landingPageService
-      .getLandingPage({
-        eventId: this.eventId,
-        stage: 5,
-      })
-      .subscribe((data) => {
-        const areas = (data.json as any)['areas'] as ILandingPageArea[];
-        this.loader = false;
-      });
+    const data = sessionStorage.getItem('appito-events-payment');
+    if (!data) {
+      this.snackbar.open('Ocorreu um erro. Tente novamente.', 'Fechar', { duration: 1000 });
+      this.router.navigateByUrl(`${this.eventId}`);
+      return;
+    }
+    this.paymentData = JSON.parse(data);
+    this.loader = false;
+    sessionStorage.removeItem('appito-events-payment');
   }
 
   onClose() {

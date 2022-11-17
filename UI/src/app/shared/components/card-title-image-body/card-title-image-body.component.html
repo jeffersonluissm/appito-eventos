@@ -4,6 +4,6 @@
     <h1 class="typography">{{ props.title }}</h1>
   </div>
   <div class="card__content typography body medium">
-    {{ props.body }}
+    <div [innerHTML]="props.body"></div>
   </div>
 </div>

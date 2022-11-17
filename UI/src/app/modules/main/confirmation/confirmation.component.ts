@@ -14,7 +14,8 @@ export class ConfirmationComponent implements OnInit {
   eventId!: string;
   areaButton: ILandingPageArea | undefined;
   loader = false;
-  buttonEnabled = false;
+  buttonEnabled = true;
+  acceptTerms = false;
 
   customer?: ICustomer;
 
@@ -28,6 +29,7 @@ export class ConfirmationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.landingPageService.setColors();
     this.customer = this.landingPageService.getCache();
     if (!this.customer) {
@@ -74,6 +76,7 @@ export class ConfirmationComponent implements OnInit {
         this.loader = false;
         this.landingPageService.resetCache();
         const route = this.areaButton ? this.areaButton.properties.action : 'payment';
+        sessionStorage.setItem('appito-events-payment', JSON.stringify(data));
         this.router.navigateByUrl(`${this.eventId}/${route}`);
       },
       error: (data) => {

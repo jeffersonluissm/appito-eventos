@@ -6,7 +6,7 @@
     [showClose]="true"
   ></app-header-inner>
 
-  <div class="container-sm p-0">
+  <div class="container-sm p-0" *ngIf="paymentData">
     <div class="content">
       <div class="typography body medium payment-description">
         Pague pela internet ou app do seu banco copiando a chave Pix ou através do QR Code. Lembre-se de realizar o
@@ -17,18 +17,21 @@
       <div class="row payment-row">
         <div class="col-md-6">
           <div class="container-pix">
-            <img src="https://via.placeholder.com/180" alt="" />
-            <p class="typography body medium color-title">R$ 60,00 – Pague até: 11/11 13:32</p>
+            <img [src]="paymentData.pixImage" alt="" />
+            <p class="typography body medium color-title">
+              {{ paymentData.price | currency: 'BRL':'symbol':'0.2-2' }} – Pague até:
+              {{ paymentData.dueDate | date: 'dd/MM HH:mm' }}
+            </p>
           </div>
         </div>
 
         <div class="col-md-6">
           <div class="typography body medium payment-code">
-            {{ codePix }}
+            {{ paymentData.pixCode }}
           </div>
 
           <div class="text-center">
-            <button class="btn btn-primary" [cdkCopyToClipboard]="codePix">Copiar código Pix</button>
+            <button class="btn btn-primary" [cdkCopyToClipboard]="paymentData.pixCode">Copiar código Pix</button>
           </div>
         </div>
       </div>

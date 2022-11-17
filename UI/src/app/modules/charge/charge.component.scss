@@ -1,9 +1,9 @@
 .charge-body {
   background: var(--color-background-primary);
   color: var(--color-body);
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
-  padding-bottom: 148px;
+  padding-bottom: 85px;
 
   .content-form {
     padding: 0 16px;
@@ -24,10 +24,9 @@
   }
 
   .bottom-button {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 0 16px 12px;
   }
 }

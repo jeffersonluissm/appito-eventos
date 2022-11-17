@@ -1,7 +1,7 @@
 export interface ICustomer {
   subscriptionId: string;
-  fullName: string;
-  document: string;
+  name: string;
+  documentNumber: string;
   phone: string;
   email: string;
   addressDetails: {
@@ -30,8 +30,8 @@ interface ICustomerOrderItem {
 
 export class Customer implements ICustomer {
   subscriptionId!: string;
-  fullName!: string;
-  document!: string;
+  name!: string;
+  documentNumber!: string;
   phone!: string;
   email!: string;
   addressDetails!: {

@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "appito-eventos"
+  },
+  "targets": {
+    "apitador-1209": {
+      "hosting": {
+        "appito-eventos": [
+          "appito-eventos"
+        ]
+      }
+    }
+  }
+}

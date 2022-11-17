@@ -12,7 +12,6 @@
                 {{ item.quantity }}x {{ item.name }}<br />
                 {{ customer.order.name }}<br />
                 {{ customer.order.date }}<br />
-                {{ customer.order.name }}<br />
                 {{ item.priceItem | currency: 'BRL':'symbol':'0.2-2' }}<br /><br />
                 Total: {{ item.price | currency: 'BRL':'symbol':'0.2-2' }}
               </ng-container>
@@ -24,8 +23,8 @@
             <h2 class="typography color-title">Dados para cobrança</h2>
 
             <p class="typography body medium">
-              {{ customer.fullName }}<br />
-              {{ customer.document | mask: '000.000.000-00' }}<br />
+              {{ customer.name }}<br />
+              {{ customer.documentNumber | mask: '000.000.000-00' }}<br />
               {{ customer.phone | mask: '(00) 00000-0000' }}<br />
               {{ customer.email }}<br />
               {{ customer.addressDetails.zipcode | mask: '00000-000' }}<br />
@@ -39,7 +38,7 @@
 
       <div class="divider"></div>
 
-      <mat-checkbox class="checkbox-terms" [(ngModel)]="buttonEnabled">
+      <mat-checkbox class="checkbox-terms" [(ngModel)]="acceptTerms">
         <div class="terms typography body medium">
           Declaro que li e estou de acordo com os <a (click)="openTerms()">Termos e Condições</a> do evento.
         </div></mat-checkbox
@@ -48,7 +47,7 @@
       <div class="bottom-button" *ngIf="areaButton">
         <app-bottom-button-bar
           [props]="areaButton.properties"
-          [enabled]="buttonEnabled"
+          [enabled]="acceptTerms && buttonEnabled"
           (clicked)="next()"
         ></app-bottom-button-bar>
       </div>

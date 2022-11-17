@@ -68,7 +68,7 @@ export class MainComponent implements OnInit {
         },
         error: (err) => {
           this.snackbar.open('Este evento não existe', 'Fechar', { duration: 5000 });
-          location.href = 'https://appito.com';
+          // location.href = 'https://appito.com';
         },
       });
   }

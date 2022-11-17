@@ -22,7 +22,6 @@ $container-max-widths: (
   md: 720px,
   lg: 786px,
   xl: 792px,
-  xxl: 792px,
 );
 
 $grid-gutter-width: 24px;
@@ -32,6 +31,7 @@ $grid-gutter-width: 24px;
 
 body {
   font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
 }
 
 .btn {
@@ -90,7 +90,7 @@ body .form-control {
   &,
   &:disabled,
   &[readonly] {
-    @include placeholder(var(--color-outline));
+    @include placeholder(var(--color-body));
   }
 }
 
@@ -103,7 +103,7 @@ body .form-control {
     border-radius: 4px 4px 0px 0px;
     border: none;
     border-bottom: solid 1px var(--color-body);
-    color: var(--color-body) !important;
+    color: var(--color-title) !important;
     font-size: 16px;
     line-height: 24px;
     transition: all 0.1s ease;
@@ -111,7 +111,7 @@ body .form-control {
 
     &:focus {
       background: var(--color-background-secondary);
-      border-bottom: solid 1px var(--color-body);
+      border-bottom: solid 1px var(--color-title);
       box-shadow: none;
     }
   }
@@ -186,6 +186,7 @@ body {
 /* MATDIALOG */
 .dialog-help {
   .mat-dialog-container {
+    border-radius: 28px;
     background: var(--color-background-primary);
   }
 }
