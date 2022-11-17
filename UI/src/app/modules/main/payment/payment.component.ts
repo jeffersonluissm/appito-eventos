@@ -49,6 +49,6 @@ export class PaymentComponent implements OnInit {
   }
 
   onClose() {
-    this.router.navigateByUrl(`/${this.eventId}`);
+    this.router.navigate([`/${this.eventId}`], { queryParamsHandling: 'preserve' });
   }
 }

@@ -144,6 +144,6 @@ export class TicketsComponent implements OnInit {
     this.landingPageService.saveCache(customer);
 
     const route = this.areaButton ? this.areaButton.properties.action : 'cobranca';
-    this.router.navigateByUrl(`${this.eventId}/${route}`);
+    this.router.navigate([`${this.eventId}/${route}`], { queryParamsHandling: 'preserve' });
   }
 }

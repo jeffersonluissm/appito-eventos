@@ -19,6 +19,7 @@ export interface ICustomer {
     time: string;
     items: ICustomerOrderItem[];
   };
+  source: string | null;
 }
 
 interface ICustomerOrderItem {
@@ -44,6 +45,7 @@ export class Customer implements ICustomer {
     state: string;
   };
   order!: { date: string; name: string; time: string; items: ICustomerOrderItem[] };
+  source!: string;
 
   constructor(init?: ICustomer) {
     Object.assign(this, init);

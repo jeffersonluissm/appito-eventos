@@ -37,33 +37,6 @@ export class LandingPageService extends BaseService {
   }
 
   getLandingPage(request: ILandingPageRequest): Observable<ILandingPageModel> {
-    // if (request.stage === 3) {
-    //   return of(buildLandingPageSection3()).pipe(
-    //     map((item) => {
-    //       item.json = JSON.parse(item.json as string);
-    //       return item;
-    //     })
-    //   );
-    // }
-
-    // if (request.stage === 4) {
-    //   return of(buildLandingPageSection4()).pipe(
-    //     map((item) => {
-    //       item.json = JSON.parse(item.json as string);
-    //       return item;
-    //     })
-    //   );
-    // }
-
-    // if (request.stage === 5) {
-    //   return of(buildLandingPageSection5()).pipe(
-    //     map((item) => {
-    //       item.json = JSON.parse(item.json as string);
-    //       return item;
-    //     })
-    //   );
-    // }
-
     return this.http.post<ILandingPageModel>(`${this.landingPageApi}/GetLandingPageAlt/`, request).pipe(
       map((item) => {
         if (!item) {

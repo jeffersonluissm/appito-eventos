@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { LandingPageService } from 'src/app/shared/services/landing-page.service';
@@ -7,10 +7,12 @@ import { LandingPageService } from 'src/app/shared/services/landing-page.service
   selector: 'app-terms',
   templateUrl: './terms.component.html',
   styleUrls: ['./terms.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class TermsComponent implements OnInit {
   eventId!: string;
   loader = false;
+  data = '';
 
   constructor(
     private landingPageService: LandingPageService,
@@ -38,6 +40,11 @@ export class TermsComponent implements OnInit {
       })
       .subscribe((data) => {
         this.loader = false;
+        if (!data.json) {
+          return;
+        }
+        this.data = (data.json as any)['conteudo'];
+        console.log(this.data);
       });
   }
 }

@@ -18,6 +18,7 @@ export class ConfirmationComponent implements OnInit {
   acceptTerms = false;
 
   customer?: ICustomer;
+  source = null;
 
   constructor(
     private landingPageService: LandingPageService,
@@ -26,6 +27,9 @@ export class ConfirmationComponent implements OnInit {
     private snackbar: MatSnackBar
   ) {
     this.eventId = route.snapshot.params.eventId;
+    this.route.queryParams.subscribe((data) => {
+      this.source = data.source;
+    });
   }
 
   ngOnInit(): void {
@@ -69,15 +73,17 @@ export class ConfirmationComponent implements OnInit {
     if (!this.customer) {
       return;
     }
+
     this.loader = true;
     this.buttonEnabled = false;
+    this.customer.source = this.source;
     this.landingPageService.postRegisterCustomer(this.customer).subscribe({
       next: (data) => {
         this.loader = false;
         this.landingPageService.resetCache();
         const route = this.areaButton ? this.areaButton.properties.action : 'payment';
         sessionStorage.setItem('appito-events-payment', JSON.stringify(data));
-        this.router.navigateByUrl(`${this.eventId}/${route}`);
+        this.router.navigate([`${this.eventId}/${route}`], { queryParamsHandling: 'preserve' });
       },
       error: (data) => {
         this.snackbar.open('Ocorreu um erro. Tente novamente.', 'Fechar', { duration: 1000 });

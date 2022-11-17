@@ -75,6 +75,6 @@ export class MainComponent implements OnInit {
 
   next() {
     const route = this.areaButton ? this.areaButton.properties.action : 'tickets';
-    this.router.navigateByUrl(`${this.eventId}/${route}`);
+    this.router.navigate([`${this.eventId}/${route}`], { queryParamsHandling: 'preserve' });
   }
 }
