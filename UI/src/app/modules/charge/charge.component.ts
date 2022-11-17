@@ -1,3 +1,4 @@
+import { CustomValidators } from './../../shared/utils/custom-validators';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -107,6 +108,10 @@ export class ChargeComponent implements OnInit {
 
       if (f.properties['key'] === 'email') {
         validators.push(Validators.email);
+      }
+
+      if (f.properties['key'] === 'documentNumber') {
+        validators.push(CustomValidators.ValidaCpf);
       }
 
       const required = f.properties['required'];
