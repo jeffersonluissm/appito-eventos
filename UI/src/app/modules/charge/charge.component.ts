@@ -1,12 +1,12 @@
-import { CustomValidators } from './../../shared/utils/custom-validators';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from 'src/app/shared/model/ICustomer';
 import { LandingPageService } from 'src/app/shared/services/landing-page.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ILandingPageArea } from './../../shared/model/ILandingPageModel';
+import { CustomValidators } from './../../shared/utils/custom-validators';
 
 @Component({
   selector: 'app-charge',
