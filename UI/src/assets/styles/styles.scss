@@ -122,6 +122,50 @@ body .form-control {
   }
 
   @include placeholder(var(--color-body));
+
+  &__feedback-error {
+    color: var(--color-dark-error);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0.4px;
+    padding-left: 16px;
+    display: none;
+    margin-top: 4px;
+  }
+
+  &-container {
+    position: relative;
+    .icon-error {
+      display: none;
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      color: var(--color-dark-error);
+
+      &::after {
+        content: '';
+        background: var(--color-primary-error);
+        opacity: 0.3;
+        width: 20px;
+        height: 20px;
+        display: block;
+        top: 2px;
+        left: 2px;
+        position: absolute;
+        z-index: 0;
+        border-radius: 100%;
+      }
+    }
+    &.error {
+      .icon-error,
+      .form-control__feedback-error {
+        display: block;
+      }
+      .form-control {
+        border-bottom: solid 2px var(--color-dark-error);
+      }
+    }
+  }
 }
 
 .card__content {

@@ -38,11 +38,12 @@
 
       <div class="divider"></div>
 
-      <mat-checkbox class="checkbox-terms" [(ngModel)]="acceptTerms">
+      <div class="checkbox-terms">
+        <mat-checkbox class="checkbox-terms" [(ngModel)]="acceptTerms"> </mat-checkbox>
         <div class="terms typography body medium">
           Declaro que li e estou de acordo com os <a (click)="openTerms()">Termos e Condições</a> do evento.
-        </div></mat-checkbox
-      >
+        </div>
+      </div>
 
       <div class="bottom-button" *ngIf="areaButton">
         <app-bottom-button-bar

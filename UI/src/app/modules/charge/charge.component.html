@@ -8,14 +8,20 @@
           <ng-container *ngFor="let field of areaForm.properties['fields']">
             <div class="row row-form">
               <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  [formControlName]="field.properties['key']"
-                  [placeholder]="field.properties['label']"
-                  autocomplete="off"
-                  [mask]="field.properties['mask']"
-                />
+                <div class="form-control-container" [class.error]="isFormInvalid(form.get(field.properties['key']))">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [formControlName]="field.properties['key']"
+                    [placeholder]="field.properties['label']"
+                    autocomplete="off"
+                    [mask]="field.properties['mask']"
+                  />
+                  <span class="material-icons-outlined icon-error"> error_outline </span>
+                  <span class="typography form-control__feedback-error">
+                    {{ field.properties['label'].replace(' *', '') }} inválido
+                  </span>
+                </div>
               </div>
             </div>
           </ng-container>
@@ -23,39 +29,50 @@
         <ng-container *ngIf="areaFormAddress">
           <div class="row row-form">
             <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                formControlName="zipcode"
-                placeholder="CEP"
-                mask="00000-000"
-                autocomplete="off"
-                (change)="getAddressByZipcode()"
-              />
+              <div class="form-control-container" [class.error]="isFormInvalid(form.get('zipcode'))">
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="zipcode"
+                  placeholder="CEP *"
+                  mask="00000-000"
+                  autocomplete="off"
+                />
+                <span class="material-icons-outlined icon-error"> error_outline </span>
+                <span class="typography form-control__feedback-error"> CEP inválido </span>
+              </div>
             </div>
           </div>
 
           <ng-container *ngIf="showAddress">
             <div class="row row-form">
               <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="address"
-                  placeholder="Logradouro"
-                  autocomplete="off"
-                />
+                <div class="form-control-container" [class.error]="isFormInvalid(form.get('address'))">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="address"
+                    placeholder="Logradouro *"
+                    autocomplete="off"
+                  />
+                  <span class="material-icons-outlined icon-error"> error_outline </span>
+                  <span class="typography form-control__feedback-error"> Logradouro inválido </span>
+                </div>
               </div>
             </div>
             <div class="row row-form row-form-2">
               <div class="col-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="addressNumber"
-                  placeholder="Número"
-                  autocomplete="off"
-                />
+                <div class="form-control-container" [class.error]="isFormInvalid(form.get('addressNumber'))">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="addressNumber"
+                    placeholder="Número *"
+                    autocomplete="off"
+                  />
+                  <span class="material-icons-outlined icon-error"> error_outline </span>
+                  <span class="typography form-control__feedback-error"> Número inválido </span>
+                </div>
               </div>
               <div class="col-6">
                 <input
@@ -70,28 +87,46 @@
 
             <div class="row-form">
               <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="neighborhood"
-                  placeholder="Bairro"
-                  autocomplete="off"
-                />
+                <div class="form-control-container" [class.error]="isFormInvalid(form.get('neighborhood'))">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="neighborhood"
+                    placeholder="Bairro *"
+                    autocomplete="off"
+                  />
+                  <span class="material-icons-outlined icon-error"> error_outline </span>
+                  <span class="typography form-control__feedback-error"> Bairro inválido </span>
+                </div>
               </div>
             </div>
 
             <div class="row row-form row-form-2">
               <div class="col-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="city"
-                  placeholder="Cidade"
-                  autocomplete="off"
-                />
+                <div class="form-control-container" [class.error]="isFormInvalid(form.get('city'))">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="city"
+                    placeholder="Cidade *"
+                    autocomplete="off"
+                  />
+                  <span class="material-icons-outlined icon-error"> error_outline </span>
+                  <span class="typography form-control__feedback-error"> Cidade inválido </span>
+                </div>
               </div>
               <div class="col-6">
-                <input type="text" class="form-control" formControlName="state" placeholder="UF" autocomplete="off" />
+                <div class="form-control-container" [class.error]="isFormInvalid(form.get('state'))">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="state"
+                    placeholder="UF *"
+                    autocomplete="off"
+                  />
+                  <span class="material-icons-outlined icon-error"> error_outline </span>
+                  <span class="typography form-control__feedback-error"> UF inválido </span>
+                </div>
               </div>
             </div>
           </ng-container>

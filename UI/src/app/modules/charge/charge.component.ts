@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Customer } from 'src/app/shared/model/ICustomer';
 import { LandingPageService } from 'src/app/shared/services/landing-page.service';
 
@@ -73,12 +74,28 @@ export class ChargeComponent implements OnInit {
             },
           };
           this.buildForm(area as any);
+
+          this.form
+            .get('zipcode')
+            ?.valueChanges.pipe(debounceTime(500), distinctUntilChanged())
+            .subscribe((data) => {
+              if (data.length === 8) {
+                this.getAddressByZipcode();
+              }
+            });
         }
 
         this.recoverData();
 
         this.loader = false;
       });
+  }
+
+  isFormInvalid(control: AbstractControl | null) {
+    if (!control) {
+      return false;
+    }
+    return control.touched && control.invalid;
   }
 
   recoverData() {
@@ -145,6 +162,12 @@ export class ChargeComponent implements OnInit {
       this.loader = false;
       this.form.patchValue(data);
       this.showAddress = true;
+
+      if (!data.address) {
+        this.form.get('zipcode')?.setErrors({ incorrect: true });
+      } else {
+        this.form.get('zipcode')?.setErrors(null);
+      }
     });
   }
 

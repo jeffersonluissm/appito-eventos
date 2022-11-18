@@ -32,4 +32,13 @@
     left: 0;
     width: 100%;
   }
+
+  .checkbox-terms {
+    a {
+      cursor: pointer;
+    }
+    mat-checkbox + div {
+      display: inline-block;
+    }
+  }
 }
