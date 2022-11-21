@@ -1,0 +1,41 @@
+<div class="search-body">
+  <app-header-inner title="Identificação" [loader]="loader" (back)="back()"></app-header-inner>
+
+  <div class="container-sm p-0">
+    <div class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <p class="typography body medium">
+            Preencha seu CPF abaixo. Caso ele conste na lista de convidados enviada para o Appito, você poderá seguir
+            com o resgate do seu ingresso.
+          </p>
+          <div class="form-control-container" [class.error]="isFormInvalid()">
+            <input
+              type="text"
+              class="form-control"
+              [formControl]="documentNumber"
+              placeholder="CPF"
+              autocomplete="off"
+              mask="000.000.000-00"
+            />
+            <span class="material-icons-outlined icon-error"> error_outline </span>
+            <span class="typography form-control__feedback-error" *ngIf="!documentNumber?.errors?.notFound">
+              CPF inválido
+            </span>
+            <span class="typography form-control__feedback-error" *ngIf="documentNumber?.errors?.notFound">
+              CPF não encontrado
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-button" *ngIf="areaButton">
+        <app-bottom-button-bar
+          [props]="areaButton.properties"
+          [enabled]="ticket !== undefined && ticket !== null"
+          (clicked)="next()"
+        ></app-bottom-button-bar>
+      </div>
+    </div>
+  </div>
+</div>

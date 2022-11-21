@@ -1,10 +1,10 @@
-import { TermsComponent } from './terms/terms.component';
-import { PaymentComponent } from './payment/payment.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
 
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { MainComponent } from './main.component';
+import { PaymentComponent } from './payment/payment.component';
+import { TermsComponent } from './terms/terms.component';
 
 const routes: Routes = [
   {
@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: ':eventId/payment',
     component: PaymentComponent,
+  },
+  {
+    path: ':eventId/search',
+    loadChildren: () => import('../search/search.module').then((m) => m.SearchModule),
   },
   {
     path: '',

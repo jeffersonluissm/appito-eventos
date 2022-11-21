@@ -1,0 +1,67 @@
+<div class="confirmation-body">
+  <app-header-inner
+    [title]="header.title"
+    [loader]="loader"
+    (back)="back()"
+    (close)="onClose()"
+    [showClose]="header.showClose"
+  ></app-header-inner>
+
+  <ng-container *ngIf="panelIndex == 1">
+    <div class="container-sm p-0">
+      <div class="content" *ngIf="ticket">
+        <div class="row">
+          <div class="col-md-6">
+            <article>
+              <h2 class="typography color-title">Ingresso</h2>
+              <p class="typography body medium">
+                {{ ticket.ticketInfo.category }}<br />
+                {{ ticket.ticketInfo.eventName }}<br />
+                {{ ticket.ticketInfo.eventDateTime }}<br />
+                {{ ticket.ticketInfo.price | currency: 'BRL':'symbol':'0.2-2' }}<br /><br />
+                Total: {{ ticket.ticketInfo.total | currency: 'BRL':'symbol':'0.2-2' }}
+              </p>
+            </article>
+          </div>
+          <div class="col-md-6">
+            <article>
+              <h2 class="typography color-title">Dados do convite</h2>
+
+              <p class="typography body medium">
+                {{ ticket.inviteInfo.name }}<br />
+                {{ ticket.inviteInfo.document | mask: '000.000.000-00' }}<br />
+                {{ ticket.inviteInfo.phone | mask: '(00) 00000-0000' }}<br />
+                {{ ticket.inviteInfo.email }}<br />
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="checkbox-terms">
+          <mat-checkbox class="checkbox-terms" [(ngModel)]="acceptTerms"> </mat-checkbox>
+          <div class="terms typography body medium">
+            Declaro que li e estou de acordo com os <a (click)="openTerms()">Termos e Condições</a> do evento.
+          </div>
+        </div>
+
+        <div class="bottom-button" *ngIf="areaButton">
+          <app-bottom-button-bar
+            [props]="areaButton.properties"
+            [enabled]="acceptTerms && buttonEnabled"
+            (clicked)="next()"
+          ></app-bottom-button-bar>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="panelIndex == 2">
+    <div class="container-sm p-0">
+      <div class="content">
+        <div [innerHtml]="contentResponse"></div>
+      </div>
+    </div>
+  </ng-container>
+</div>

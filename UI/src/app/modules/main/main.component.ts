@@ -63,18 +63,25 @@ export class MainComponent implements OnInit {
           this.headerBg = `url("${this.areasLayout.header.find((a) => a.type === 'hero-image')?.properties['image']}")`;
 
           this.colors = (data.json as any)['colors'][1];
-          localStorage.setItem('appito-events-colors', JSON.stringify(this.colors));
+          sessionStorage.setItem('appito-events-colors', JSON.stringify(this.colors));
           this.landingPageService.setColors();
         },
         error: (err) => {
           this.snackbar.open('Este evento não existe', 'Fechar', { duration: 5000 });
-          // location.href = 'https://appito.com';
         },
       });
   }
 
   next() {
-    const route = this.areaButton ? this.areaButton.properties.action : 'tickets';
+    let route = 'tickets';
+    if (this.areaButton) {
+      route = this.areaButton.properties.action;
+      if (this.areaButton.properties.action) {
+        this.router.navigate([`${this.eventId}/${route}`], { queryParamsHandling: 'preserve' });
+      } else if (this.areaButton.properties.url) {
+        window.open(this.areaButton.properties.url, '_blank');
+      }
+    }
     this.router.navigate([`${this.eventId}/${route}`], { queryParamsHandling: 'preserve' });
   }
 }
