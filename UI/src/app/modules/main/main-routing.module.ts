@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { QuestionComponent } from './question/question.component';
 
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { MainComponent } from './main.component';
 import { PaymentComponent } from './payment/payment.component';
+import { RegisterComponent } from './register/register.component';
 import { TermsComponent } from './terms/terms.component';
 
 const routes: Routes = [
@@ -30,6 +32,14 @@ const routes: Routes = [
   {
     path: ':eventId/payment',
     component: PaymentComponent,
+  },
+  {
+    path: ':eventId/register',
+    component: RegisterComponent,
+  },
+  {
+    path: ':eventId/question',
+    component: QuestionComponent,
   },
   {
     path: ':eventId/search',

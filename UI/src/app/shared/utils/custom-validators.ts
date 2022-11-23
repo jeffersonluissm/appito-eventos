@@ -1,4 +1,8 @@
-import { AbstractControl } from '@angular/forms';
+import { LandingPageService } from 'src/app/shared/services/landing-page.service';
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/internal/operators/map';
+import { ITicketValidation } from '../model/ITicketValidation';
 
 export class CustomValidators {
   static ValidaCpf(controle: AbstractControl) {
@@ -43,5 +47,17 @@ export class CustomValidators {
     if (valido) return null;
 
     return { cpfInvalido: true };
+  }
+
+  static ticketValidator(service: LandingPageService, minLength = 0): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<any> => {
+      if (control.value.length >= minLength) {
+        return service
+          .verifyTicket(control.value)
+          .pipe(map((result: ITicketValidation) => (result.isValid === false ? { invalid: true } : null)));
+      } else {
+        return of({ invalid: true });
+      }
+    };
   }
 }

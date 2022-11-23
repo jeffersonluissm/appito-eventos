@@ -1,20 +1,15 @@
-import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {
-  buildLandingPageSection3,
-  buildLandingPageSection4,
-  buildLandingPageSection5,
-} from 'src/app/core/mocks/landingPageSection1.mock';
 import { ILandingTicket } from 'src/app/shared/model/ILandingTicket';
 
 import { IAddress } from '../model/IAddress';
 import { ICustomer } from '../model/ICustomer';
 import { ILandingPageRequest } from '../model/ILandingPageRequestModel';
-import { IRegisterCustomerResponse } from '../model/IRegisterCustomerResponse';
+import { IRegisterDraw } from '../model/IRegisterDraw';
 import { ITicket } from '../model/ITicket';
+import { ITicketValidation } from '../model/ITicketValidation';
 import { ILandingPageModel } from './../model/ILandingPageModel';
 import { BaseService } from './base.service';
 
@@ -49,18 +44,20 @@ export class LandingPageService extends BaseService {
         item.json = JSON.parse(item.json as string);
         console.log(item.json);
 
-        const tickets = (item.json as any)['tickets'];
-        if (tickets) {
-          tickets.forEach((t: ILandingTicket) => {
-            t.icon = t.icon === 'calendar' ? 'event' : t.icon;
-            t.expand = false;
-            t.items = t.items.map((ti) => {
-              ti.quantity = 0;
-              ti.icon = ti.icon === 'ticket' ? 'confirmation_number' : ti.icon;
-              return ti;
+        if (item.json) {
+          const tickets = (item.json as any)['tickets'];
+          if (tickets) {
+            tickets.forEach((t: ILandingTicket) => {
+              t.icon = t.icon === 'calendar' ? 'event' : t.icon;
+              t.expand = false;
+              t.items = t.items.map((ti) => {
+                ti.quantity = 0;
+                ti.icon = ti.icon === 'ticket' ? 'confirmation_number' : ti.icon;
+                return ti;
+              });
             });
-          });
-          (item.json as any)['tickets'] = tickets;
+            (item.json as any)['tickets'] = tickets;
+          }
         }
 
         return item;
@@ -102,6 +99,7 @@ export class LandingPageService extends BaseService {
 
   resetCache() {
     sessionStorage.removeItem('appito-events-data');
+    sessionStorage.removeItem('appito-events-data-concurso');
   }
 
   postRegisterCustomer<IRegisterCustomerResponse>(customer: ICustomer) {
@@ -109,27 +107,18 @@ export class LandingPageService extends BaseService {
   }
 
   checkDocument(documentNumber: string): Observable<ITicket> {
-    // return of({
-    //   ticketInfo: {
-    //     category: '2x Passaporte Appito',
-    //     eventName: 'Brasil x Sérvia',
-    //     eventDateTime: 'Quinta-feira, 24/11',
-    //     price: 20,
-    //     total: 40,
-    //   },
-    //   inviteInfo: {
-    //     name: 'Ludovic Le Roy',
-    //     document: '32165498700',
-    //     phone: '11999998888',
-    //     email: 'ludovic@appito.com',
-    //   },
-    //   message: '',
-    //   error: false,
-    // });
     return this.http.post<ITicket>(`${this.landingPageApi}/CheckDocument/`, { documentNumber });
   }
 
   generateTicket(documentNumber: string): Observable<{ content: string }> {
     return this.http.post<{ content: string }>(`${this.landingPageApi}/GenerateTicket/`, { documentNumber });
+  }
+
+  verifyTicket(ticketNumber: string): Observable<ITicketValidation> {
+    return this.http.get<ITicketValidation>(`${this.landingPageApi}/VerifyTicket/${ticketNumber}`);
+  }
+
+  registerToDraw(data: IRegisterDraw): Observable<any> {
+    return this.http.post<any>(`${this.landingPageApi}/RegisterToDraw/`, data);
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ILandingPageArea } from 'src/app/shared/model/ILandingPageModel';
 import { ITicket } from 'src/app/shared/model/ITicket';
 import { LandingPageService } from 'src/app/shared/services/landing-page.service';
@@ -83,5 +83,7 @@ export class ConfirmationComponent implements OnInit {
     window.open(`${this.eventId}/terms`, '_blank');
   }
 
-  onClose() {}
+  onClose() {
+    this.router.navigateByUrl(`${this.eventId}`);
+  }
 }

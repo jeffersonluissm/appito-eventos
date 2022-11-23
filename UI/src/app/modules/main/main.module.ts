@@ -1,20 +1,23 @@
-import { NgxMaskModule } from 'ngx-mask';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxMaskModule } from 'ngx-mask';
+
 import { MainComponent } from '../main/main.component';
 import { SharedModule } from './../../shared/components/shared.module';
 import { LandingPageService } from './../../shared/services/landing-page.service';
-import { MainRoutingModule } from './main-routing.module';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { MainRoutingModule } from './main-routing.module';
 import { PaymentComponent } from './payment/payment.component';
-import { ClipboardModule } from '@angular/cdk/clipboard';
+import { RegisterComponent } from './register/register.component';
 import { TermsComponent } from './terms/terms.component';
+import { QuestionComponent } from './question/question.component';
 
 @NgModule({
-  declarations: [MainComponent, ConfirmationComponent, PaymentComponent, TermsComponent],
+  declarations: [MainComponent, ConfirmationComponent, PaymentComponent, TermsComponent, RegisterComponent, QuestionComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
@@ -24,6 +27,7 @@ import { TermsComponent } from './terms/terms.component';
     FormsModule,
     NgxMaskModule.forRoot(),
     ClipboardModule,
+    ReactiveFormsModule,
   ],
   providers: [LandingPageService],
 })

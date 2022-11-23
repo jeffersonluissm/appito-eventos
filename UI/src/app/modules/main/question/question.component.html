@@ -1,0 +1,78 @@
+<div class="question-body">
+  <app-header-inner
+    [title]="header.title"
+    [loader]="loader"
+    (back)="back()"
+    (close)="onClose()"
+    [showClose]="header.showClose"
+  ></app-header-inner>
+
+  <ng-container *ngIf="panelIndex == 1">
+    <div class="container-sm p-0">
+      <div class="content">
+        <div class="content-form">
+          <form [formGroup]="form">
+            <ng-container *ngIf="areaForm">
+              <ng-container *ngFor="let field of areaForm.properties['fields']">
+                <div class="row row-form">
+                  <div class="col">
+                    <label [for]="field.properties['key']" class="typography body medium">
+                      {{ field.properties['label'] }}
+                    </label>
+                    <div
+                      class="form-control-container"
+                      [class.error]="isFormInvalid(form.get(field.properties['key']))"
+                    >
+                      <input
+                        type="text"
+                        class="form-control"
+                        [formControlName]="field.properties['key']"
+                        [placeholder]="field.properties['placeholder']"
+                        autocomplete="off"
+                        [maxlength]="field.properties['size']"
+                        [mask]="field.properties['mask']"
+                      />
+                      <span class="material-icons-outlined icon-error"> error_outline </span>
+                      <span class="typography form-control__feedback-error">
+                        Campo "{{ field.properties['placeholder'].replace(' *', '') }}" inválido
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+          </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="checkbox-terms">
+          <mat-checkbox class="checkbox-terms" [(ngModel)]="acceptTerms"> </mat-checkbox>
+          <div class="terms typography body medium">
+            Declaro que li e estou de acordo com os <a (click)="openTerms()">Termos e Condições</a> do concurso.
+          </div>
+        </div>
+
+        <div class="bottom-button" *ngIf="areaButton">
+          <app-bottom-button-bar
+            [props]="areaButton.properties"
+            [enabled]="acceptTerms && buttonEnabled && form.valid"
+            (clicked)="next()"
+          ></app-bottom-button-bar>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="panelIndex == 2">
+    <div class="container-sm p-0">
+      <div class="content">
+        <p class="typography body medium">
+          Sua participação no concurso está mais que confirmada!<br /><br />
+
+          Fique atento ao anúncio dos vencedores.
+        </p>
+      </div>
+    </div>
+  </ng-container>
+</div>

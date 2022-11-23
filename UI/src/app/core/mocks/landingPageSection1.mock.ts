@@ -1,3 +1,4 @@
+import { ITicket } from 'src/app/shared/model/ITicket';
 import { ILandingPageModel } from './../../shared/model/ILandingPageModel';
 
 export function buildLandingPageSection1(): ILandingPageModel {
@@ -242,6 +243,26 @@ export function buildLandingPageSection5(): ILandingPageModel {
     stages: [1, 2, 3, 4, 5],
     json: JSON.stringify(json),
     message: null as any,
+    error: false,
+  };
+}
+
+export function buildCheckDocumentResponse(): ITicket {
+  return {
+    ticketInfo: {
+      category: '2x Passaporte Appito',
+      eventName: 'Brasil x Sérvia',
+      eventDateTime: 'Quinta-feira, 24/11',
+      price: 20,
+      total: 40,
+    },
+    inviteInfo: {
+      name: 'Ludovic Le Roy',
+      document: '32165498700',
+      phone: '11999998888',
+      email: 'ludovic@appito.com',
+    },
+    message: '',
     error: false,
   };
 }

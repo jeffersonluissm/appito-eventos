@@ -1,0 +1,41 @@
+<div class="charge-body">
+  <app-header-inner [title]="titleHeader" [loader]="loader" (back)="back()"></app-header-inner>
+
+  <div class="container-sm p-0">
+    <div class="content-form">
+      <form [formGroup]="form">
+        <ng-container *ngIf="areaForm">
+          <ng-container *ngFor="let field of areaForm.properties['fields']">
+            <div class="row row-form">
+              <div class="col">
+                <div class="form-control-container" [class.error]="isFormInvalid(form.get(field.properties['key']))">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [formControlName]="field.properties['key']"
+                    [placeholder]="field.properties['label']"
+                    autocomplete="off"
+                    [maxlength]="field.properties['size']"
+                    [mask]="field.properties['mask']"
+                  />
+                  <span class="material-icons-outlined icon-error"> error_outline </span>
+                  <span class="typography form-control__feedback-error">
+                    {{ field.properties['label'].replace(' *', '') }} inválido
+                  </span>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+
+  <div class="bottom-button" *ngIf="areaButton">
+    <app-bottom-button-bar
+      [props]="areaButton.properties"
+      [enabled]="buttonEnabled"
+      (clicked)="next()"
+    ></app-bottom-button-bar>
+  </div>
+</div>

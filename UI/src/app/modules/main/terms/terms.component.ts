@@ -36,7 +36,7 @@ export class TermsComponent implements OnInit {
     this.landingPageService
       .getLandingPage({
         eventId: this.eventId,
-        stage: 6,
+        stage: 99,
       })
       .subscribe((data) => {
         this.loader = false;

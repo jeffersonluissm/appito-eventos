@@ -1,0 +1,32 @@
+.charge-body {
+  background: var(--color-background-primary);
+  color: var(--color-body);
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 85px;
+
+  .content-form {
+    padding: 0 16px;
+
+    .row-form {
+      margin-bottom: 16px;
+    }
+
+    .row-form-2 {
+      > div:first-child {
+        padding-right: 8px;
+      }
+
+      > div:last-child {
+        padding-left: 8px;
+      }
+    }
+  }
+
+  .bottom-button {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+  }
+}
