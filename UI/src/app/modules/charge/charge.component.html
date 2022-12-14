@@ -1,5 +1,5 @@
 <div class="charge-body">
-  <app-header-inner title="Dados para cobrança" [loader]="loader" (back)="back()"></app-header-inner>
+  <app-header-inner [title]="areaForm?.properties['title']" [loader]="loader" (back)="back()"></app-header-inner>
 
   <div class="container-sm p-0">
     <div class="content-form">
