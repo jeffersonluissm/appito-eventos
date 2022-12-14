@@ -1,9 +1,9 @@
-import { Customer, ICustomer } from 'src/app/shared/model/ICustomer';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Customer, ICustomer } from 'src/app/shared/model/ICustomer';
 import { ILandingPageArea } from 'src/app/shared/model/ILandingPageModel';
 import { LandingPageService } from 'src/app/shared/services/landing-page.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-confirmation',
@@ -80,8 +80,11 @@ export class ConfirmationComponent implements OnInit {
     this.landingPageService.postRegisterCustomer(this.customer).subscribe({
       next: (data) => {
         this.loader = false;
+        let route = this.areaButton ? this.areaButton.properties.action : 'payment';
+        if (route.indexOf('{CPF}') > 0) {
+          route = route.replace('{CPF}', this.landingPageService.getCache()?.documentNumber || '');
+        }
         this.landingPageService.resetCache();
-        const route = this.areaButton ? this.areaButton.properties.action : 'payment';
         sessionStorage.setItem('appito-events-payment', JSON.stringify(data));
         this.router.navigate([`${this.eventId}/${route}`], { queryParamsHandling: 'preserve' });
       },

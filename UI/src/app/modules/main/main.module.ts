@@ -15,9 +15,10 @@ import { PaymentComponent } from './payment/payment.component';
 import { RegisterComponent } from './register/register.component';
 import { TermsComponent } from './terms/terms.component';
 import { QuestionComponent } from './question/question.component';
+import { ConfirmationWithoutAcceptTermsComponent } from './confirmation-without-accept-terms/confirmation-without-accept-terms.component';
 
 @NgModule({
-  declarations: [MainComponent, ConfirmationComponent, PaymentComponent, TermsComponent, RegisterComponent, QuestionComponent],
+  declarations: [MainComponent, ConfirmationComponent, PaymentComponent, TermsComponent, RegisterComponent, QuestionComponent, ConfirmationWithoutAcceptTermsComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

@@ -1,0 +1,14 @@
+<div class="confirmation-body">
+  <app-header-inner
+    [title]="header.title"
+    [loader]="loader"
+    (close)="onClose()"
+    [showClose]="header.showClose"
+  ></app-header-inner>
+
+  <div class="container-sm p-0">
+    <div class="content">
+      <div [innerHtml]="contentResponse"></div>
+    </div>
+  </div>
+</div>

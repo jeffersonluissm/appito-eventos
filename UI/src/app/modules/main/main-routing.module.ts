@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuestionComponent } from './question/question.component';
 
+import { ConfirmationWithoutAcceptTermsComponent } from './confirmation-without-accept-terms/confirmation-without-accept-terms.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { MainComponent } from './main.component';
 import { PaymentComponent } from './payment/payment.component';
+import { QuestionComponent } from './question/question.component';
 import { RegisterComponent } from './register/register.component';
 import { TermsComponent } from './terms/terms.component';
 
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: ':eventId/confirmation',
     component: ConfirmationComponent,
+  },
+  {
+    path: ':eventId/confirmation-final/:document',
+    component: ConfirmationWithoutAcceptTermsComponent,
   },
   {
     path: ':eventId/terms',
